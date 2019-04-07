@@ -1,0 +1,38 @@
+{
+  "name": "js-console-logger",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "./dest/js-console-logger.js",
+  "scripts": {
+    "clean": "rimraf ./dest/**/*",
+    "build": "npm-run-all clean lint:ts build:js minify:js",
+    "release": "npm-run-all clean lint:ts release:js minify:js",
+    "build:js": "tsc --sourceMap true --project ./tsconfig.json",
+    "release:js": "tsc --sourceMap false --project ./tsconfig.json",
+    "lint:ts": "tslint --config ./tslint.json --project ./tsconfig.json",
+    "lint:fix": "tslint --fix --config ./tslint.json --project ./tsconfig.json",
+    "minify:js": "google-closure-compiler --js ./dest/js-console-logger.js --js_output_file ./dest/js-console-logger.min.js --compilation_level SIMPLE --create_source_map false"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kyo-suke/JSConsoleLogger.git"
+  },
+  "keywords": [],
+  "author": "Kyosuke",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kyo-suke/JSConsoleLogger/issues"
+  },
+  "homepage": "https://github.com/Kyo-suke/JSConsoleLogger#readme",
+  "devDependencies": {
+    "google-closure-compiler": "20190325.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "1.16.4",
+    "rimraf": "^2.6.3",
+    "tslint": "5.15.0",
+    "tslint-config-prettier": "1.18.0",
+    "tslint-plugin-prettier": "2.0.1",
+    "typescript": "^3.4.2"
+  }
+}
