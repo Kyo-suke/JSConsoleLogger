@@ -6,13 +6,16 @@
   "main": "./dest/js-console-logger.js",
   "scripts": {
     "clean": "rimraf ./dest/**/*",
-    "build": "npm-run-all clean lint:ts build:js minify:js",
-    "release": "npm-run-all clean lint:ts release:js minify:js",
+    "build": "npm-run-all clean lint:ts build:js minify:js concat:copyright",
+    "release": "npm-run-all clean lint:ts release:js minify:js concat:copyright",
     "build:js": "tsc --sourceMap true --project ./tsconfig.json",
     "release:js": "tsc --sourceMap false --project ./tsconfig.json",
     "lint:ts": "tslint --config ./tslint.json --project ./tsconfig.json",
     "lint:fix": "tslint --fix --config ./tslint.json --project ./tsconfig.json",
-    "minify:js": "google-closure-compiler --js ./dest/js-console-logger.js --js_output_file ./dest/js-console-logger.min.js --compilation_level SIMPLE --create_source_map false"
+    "minify:js": "google-closure-compiler --js ./dest/js-console-logger.js --js_output_file ./dest/js-console-logger.min.js --compilation_level SIMPLE --create_source_map false",
+    "concat:copyright": "npm-run-all concat:copyright.uncompressed concat:copyright.compressed",
+    "concat:copyright.uncompressed": "concat -o ./dest/js-console-logger.js ./src/copyright.uncompressed ./dest/js-console-logger.js ",
+    "concat:copyright.compressed": "concat -o ./dest/js-console-logger.min.js ./src/copyright.compressed ./dest/js-console-logger.min.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +29,7 @@
   },
   "homepage": "https://github.com/Kyo-suke/JSConsoleLogger#readme",
   "devDependencies": {
+    "concat": "^1.0.3",
     "google-closure-compiler": "20190325.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "1.16.4",
@@ -34,5 +38,6 @@
     "tslint-config-prettier": "1.18.0",
     "tslint-plugin-prettier": "2.0.1",
     "typescript": "^3.4.2"
-  }
+  },
+  "dependencies": {}
 }
