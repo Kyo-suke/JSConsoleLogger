@@ -108,6 +108,7 @@ namespace JSConsoleLogger {
      * The problem is solved by displaying the stack trace
      * when the hooked console method is executed.
      * This feature is off by default.
+     * Note : This option is not support Internet Explorer and Microsoft Edge.
      * @param enabled true: show stack trace on hooked console method.
      */
     export function setStackTraceOnConsole(enabled: boolean): void {
