@@ -1,5 +1,5 @@
 /**
- * JSConsoleLogger v1.0.0
+ * JSConsoleLogger v1.0.1
  * Released under the MIT license
  * https://github.com/Kyo-suke/JSConsoleLogger
  */
