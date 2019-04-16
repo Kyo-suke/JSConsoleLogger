@@ -114,6 +114,7 @@ scriptタグで「js-console-logger.min.js」を読み込み利用します。
 | enabled | boolean | true : スタックトレースを有効にする。 <br> false : スタックトーレスを無効にする。 |
 
 - デフォルトは無効に設定されています。
+- InternetExplorer及びMicrosoft Edgeはこのオプションに対応していません。
 
 ## 対応ブラウザ
 ECMAScript5以降に対応したモダンブラウザでご利用いただけます。
