@@ -197,10 +197,15 @@ var JSConsoleLogger;
         Logger._hook = function () {
             var cls = this;
             function _genTraceFunc(type, origFunc) {
-                return function () {
+                return function _trace() {
                     var args = [];
                     for (var _i = 0; _i < arguments.length; _i++) {
                         args[_i] = arguments[_i];
+                    }
+                    if (_trace.caller) {
+                        if (_trace.caller === _trace) {
+                            return;
+                        }
                     }
                     origFunc.apply(console, args);
                     if (console.trace && cls._isStackTrace) {
