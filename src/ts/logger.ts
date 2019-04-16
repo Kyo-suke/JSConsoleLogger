@@ -163,13 +163,19 @@ namespace JSConsoleLogger {
         private static _hook(): void {
             let cls = this;
             function _genTraceFunc(type: LogType, origFunc: Function) {
-                return (...args: any[]): void => {
+                return function _trace(...args: any[]): void {
+                    // fall down into recursive call loop when using console.trace on IE and MSEdge
+                    if (_trace.caller) {
+                        if (_trace.caller === _trace) {
+                            return;
+                        }
+                    }
                     // original trace
                     origFunc.apply(console, args);
+                    // stack trace
                     if (console.trace && cls._isStackTrace) {
                         console.trace();
                     }
-
                     // push log data
                     cls.push(type, args);
                     return;
