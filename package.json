@@ -1,6 +1,6 @@
 {
   "name": "js-console-logger",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Logging library for Javascript.",
   "private": true,
   "main": "./dest/js-console-logger.js",
