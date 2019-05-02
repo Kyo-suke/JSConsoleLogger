@@ -44,7 +44,7 @@ namespace JSConsoleLogger {
             let ret = "";
             try {
                 let y = this._paddingStr(targetDate.getFullYear(), "0", 4);
-                let m = this._paddingStr(targetDate.getMonth(), "0", 2);
+                let m = this._paddingStr(targetDate.getMonth() + 1, "0", 2);
                 let d = this._paddingStr(targetDate.getDate(), "0", 2);
                 ret = [y, m, d].join("/");
             } catch (e) {
