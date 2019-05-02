@@ -1,5 +1,5 @@
 /**
- * JSConsoleLogger v1.0.1
+ * JSConsoleLogger v1.0.2
  * Released under the MIT license
  * https://github.com/Kyo-suke/JSConsoleLogger
  */
@@ -347,7 +347,7 @@ var JSConsoleLogger;
             var ret = "";
             try {
                 var y = this._paddingStr(targetDate.getFullYear(), "0", 4);
-                var m = this._paddingStr(targetDate.getMonth(), "0", 2);
+                var m = this._paddingStr(targetDate.getMonth() + 1, "0", 2);
                 var d = this._paddingStr(targetDate.getDate(), "0", 2);
                 ret = [y, m, d].join("/");
             }
@@ -356,18 +356,25 @@ var JSConsoleLogger;
             }
             return ret;
         };
-        LogFormatter._getTimeStr = function (targetData) {
+        LogFormatter._getTimeStr = function (targetDate) {
             var ret = "";
             try {
-                var h = this._paddingStr(targetData.getHours(), "0", 2);
-                var m = this._paddingStr(targetData.getMinutes(), "0", 2);
-                var s = this._paddingStr(targetData.getSeconds(), "0", 2);
+                var h = this._paddingStr(targetDate.getHours(), "0", 2);
+                var m = this._paddingStr(targetDate.getMinutes(), "0", 2);
+                var s = this._paddingStr(targetDate.getSeconds(), "0", 2);
+                var tz = this._getTimezoneStr(targetDate);
                 ret = [h, m, s].join(":");
+                ret += " " + tz;
             }
             catch (e) {
-                ret = "??:??:??";
+                ret = "??:??:?? +0000";
             }
             return ret;
+        };
+        LogFormatter._getTimezoneStr = function (d) {
+            var num = Math.abs((d.getTimezoneOffset() * 100) / 60);
+            var polarity = d.getTimezoneOffset() > 0 ? "-" : "+";
+            return polarity + this._paddingStr(num, "0", 4);
         };
         LogFormatter._paddingStr = function (target, paddingChar, length) {
             var ret = "";

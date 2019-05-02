@@ -44,7 +44,7 @@ namespace JSConsoleLogger {
             let ret = "";
             try {
                 let y = this._paddingStr(targetDate.getFullYear(), "0", 4);
-                let m = this._paddingStr(targetDate.getMonth(), "0", 2);
+                let m = this._paddingStr(targetDate.getMonth() + 1, "0", 2);
                 let d = this._paddingStr(targetDate.getDate(), "0", 2);
                 ret = [y, m, d].join("/");
             } catch (e) {
@@ -55,20 +55,33 @@ namespace JSConsoleLogger {
 
         /**
          * Get string of time formatted "HH:mm:ss".
-         * @param targetData Target Date object.
+         * @param targetDate Target Date object.
          * @return "HH:mm:ss" formatted string.
          */
-        private static _getTimeStr(targetData: Date): string {
+        private static _getTimeStr(targetDate: Date): string {
             let ret = "";
             try {
-                let h = this._paddingStr(targetData.getHours(), "0", 2);
-                let m = this._paddingStr(targetData.getMinutes(), "0", 2);
-                let s = this._paddingStr(targetData.getSeconds(), "0", 2);
+                let h = this._paddingStr(targetDate.getHours(), "0", 2);
+                let m = this._paddingStr(targetDate.getMinutes(), "0", 2);
+                let s = this._paddingStr(targetDate.getSeconds(), "0", 2);
+                let tz = this._getTimezoneStr(targetDate);
                 ret = [h, m, s].join(":");
+                ret += " " + tz;
             } catch (e) {
-                ret = "??:??:??";
+                ret = "??:??:?? +0000";
             }
             return ret;
+        }
+
+        /**
+         * Get timezone string.
+         * @param d Date object.
+         * @return example. JST => +0900
+         */
+        private static _getTimezoneStr(d: Date): string {
+            let num = Math.abs((d.getTimezoneOffset() * 100) / 60);
+            let polarity = d.getTimezoneOffset() > 0 ? "-" : "+";
+            return polarity + this._paddingStr(num, "0", 4);
         }
 
         private static _paddingStr(target: string | number, paddingChar: string, length: number): string {
